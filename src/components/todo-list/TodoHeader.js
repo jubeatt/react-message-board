@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import defaultButton from "./common-style";
-import { useState } from "react";
+import defaultButton from "./commonStyle";
+import { useInput } from "../../custom-hooks/useInput";
+import PropTypes from "prop-types";
 
 const TodoHeaderWrapper = styled.div`
   margin-bottom: 30px;
@@ -26,25 +27,23 @@ const Input = styled.input`
 
 const BlueButton = styled.button`
   ${defaultButton}
-  border-color: ${(props) => props.theme.blue};
-  color: ${(props) => props.theme.blue};
+  border-color: ${({ theme }) => theme.blue};
+  color: ${({ theme }) => theme.blue};
   &:hover {
-    background-color: ${(props) => props.theme.blue};
+    background-color: ${({ theme }) => theme.blue};
     color: white;
   }
 `;
 
-function TodoHeader({ handleAddTodo }) {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleInput = (e) => {
-    setInputValue(e.target.value);
-  };
+export default function TodoHeader({ handleAddTodo }) {
+  const { inputValue, setInputValue, handleInput } = useInput();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleAddTodo(inputValue);
-    setInputValue("");
+    if (inputValue) {
+      handleAddTodo(inputValue);
+      setInputValue("");
+    }
   };
 
   return (
@@ -57,4 +56,7 @@ function TodoHeader({ handleAddTodo }) {
   );
 }
 
-export default TodoHeader;
+// propTypes 是小寫
+TodoHeader.propTypes = {
+  handleAddTodo: PropTypes.func,
+};

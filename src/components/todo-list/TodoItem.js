@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import defaultButton from "./common-style";
+import defaultButton from "./commonStyle";
+import PropTypes from "prop-types";
 
 const TodoItemWrapper = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const TodoContent = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  ${(props) => props.$isDone && "text-decoration: line-through;"}
+  ${({ $isDone }) => $isDone && "text-decoration: line-through;"}
 `;
 const TodoButtonWrapper = styled.div`
   display: flex;
@@ -29,51 +30,49 @@ const TodoButtonWrapper = styled.div`
 `;
 const GreenButton = styled.button`
   ${defaultButton}
-  border-color: ${(props) => props.theme.green};
-  color: ${(props) => props.theme.green};
+  border-color: ${({ theme }) => theme.green};
+  color: ${({ theme }) => theme.green};
   &:hover {
-    background-color: ${(props) => props.theme.green};
+    background-color: ${({ theme }) => theme.green};
   }
-  ${(props) =>
-    props.$isDone
+  ${({ $isDone, theme }) =>
+    $isDone
       ? `
-    background-color: ${props.theme.green};
+    background-color: ${theme.green};
     color: white;`
       : ""}
 `;
 const RedButton = styled.button`
   ${defaultButton}
-  border-color: ${(props) => props.theme.red};
-  color: ${(props) => props.theme.red};
+  border-color: ${({ theme }) => theme.red};
+  color: ${({ theme }) => theme.red};
   &:hover {
-    background-color: ${(props) => props.theme.red};
+    background-color: ${({ theme }) => theme.red};
   }
 `;
+
+// eslint-disable-next-line no-unused-vars
 const OrangeButton = styled.button`
   ${defaultButton}
-  border-color: ${(props) => props.theme.orange};
-  color: ${(props) => props.theme.orange};
+  border-color: ${({ theme }) => theme.orange};
+  color: ${({ theme }) => theme.orange};
   &:hover {
-    background-color: ${(props) => props.theme.orange};
+    background-color: ${({ theme }) => theme.orange};
   }
 `;
 
-function TodoItem({ todo, handleRemoveTodo, handleToggleTodoState }) {
-  const
-  
-  
-  handleButtonClick = (type) =>
+export default function TodoItem({
+  todo,
+  handleRemoveTodo,
+  handleToggleTodoState,
+}) {
+  const handleButtonClick = (type) =>
     type === "changeState"
-
-
       ? () => handleToggleTodoState(todo.id)
-
-
-
       : () => handleRemoveTodo(todo.id);
 
   return (
-    <TodoItemWrapper>
+    <TodoItemWrapper id={todo.id}>
       <TodoContent $isDone={todo.isDone}>{todo.content}</TodoContent>
       <TodoButtonWrapper>
         <GreenButton
@@ -88,4 +87,12 @@ function TodoItem({ todo, handleRemoveTodo, handleToggleTodoState }) {
   );
 }
 
-export default TodoItem;
+TodoItem.propTypes = {
+  todo: PropTypes.shape({
+    id: PropTypes.number,
+    content: PropTypes.string,
+    isDone: PropTypes.bool,
+  }),
+  handleRemoveTodo: PropTypes.func,
+  handleToggleTodoState: PropTypes.func,
+};

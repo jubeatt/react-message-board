@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-loading-overlay": "^1.0.1",
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
@@ -16,8 +17,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write .",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://jubeatt.github.io/react-message-board",
   "eslintConfig": {
     "extends": [
       "react-app",
