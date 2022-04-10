@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/react-message-board/static/js/main.60f0fc69.js",
+    "static/media/PeaNu.jpg": "/react-message-board/static/media/PeaNu.988b73c457814030b883.jpg",
+    "index.html": "/react-message-board/index.html",
+    "main.60f0fc69.js.map": "/react-message-board/static/js/main.60f0fc69.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.60f0fc69.js"
+  ]
+}
